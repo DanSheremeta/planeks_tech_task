@@ -1,0 +1,22 @@
+{% extends 'dataset/base.html' %}
+
+{% block content %}
+
+<h1>Login</h1>
+<br/><br/>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" name="username" placeholder="name@example.com">
+        <label for="floatingInput">Username</label>
+    </div>
+    <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+    </div>
+    <br/>
+    <input type="submit" value="Submit" class="btn btn-secondary">
+</form>
+
+{% endblock %}
