@@ -1,0 +1,18 @@
+{% extends 'dataset/base.html' %}
+
+{% block content %}
+
+<div class="container w-50 p-3">
+    <h2 class="d-flex justify-content-center">New Schema</h2>
+    <br/>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-flex justify-content-center">
+            <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

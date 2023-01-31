@@ -1,0 +1,52 @@
+{% extends 'dataset/base.html' %}
+
+{% block content %}
+<h2 class="d-flex justify-content-center">{{ schema.title }}'s schema columns</h2>
+<br>
+
+<div class="grid gap-2">
+    {% for column in columns %}
+    <div class="d-flex justify-content-between">
+        <div class="p-2 g-col-6">
+            <label for="disabledInput" class="form-label">Name</label>
+            <input type="text" class="form-control" id="disabledInput" placeholder="{{ column.name }}" disabled>
+        </div>
+        <div class="p-2 g-col-6">
+            <label for="disabledSelect" class="form-label">Type</label>
+            <select id="disabledSelect" class="form-select"  disabled>
+                <option>{{ column.type }}</option>
+            </select>
+        </div>
+        <div class="p-2 g-col-6">
+            <label for="disabledInput1" class="form-label">Order</label>
+            <input type="text" class="form-control" id="disabledInput1" placeholder="{{ column.order }}" disabled>
+        </div>
+        <button type="button" class="btn btn-link"><a class="link-danger" href="{% url 'column-delete' column.id %}">Delete</a></button>
+    </div>
+    {% endfor %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="d-flex justify-content-between">
+            <div class="p-2 g-col-6">
+                <label for="Input" class="form-label">Name</label>
+                {{ form.name }}
+            </div>
+            <div class="p-2 g-col-6">
+                <label for="Select" class="form-label">Type</label>
+                {{ form.type }}
+            </div>
+            <div class="p-2 g-col-6">
+                <label for="Input1" class="form-label">Order</label>
+                {{ form.order }}
+            </div>
+            <button type="button" class="btn btn-link"><a class="link-danger" href="#">Delete</a></button>
+        </div>
+
+        <div class="p-2 g-col-6">
+            <button type="submit" class="btn btn-primary">Add column</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

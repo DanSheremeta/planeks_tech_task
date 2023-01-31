@@ -2,8 +2,14 @@
 
 {% block content %}
 
-<h2>Data shemas</h2>
+<div class="d-flex justify-content-between">
+    <h2>Data shemas</h2>
+
+    <button type="button" class="btn btn-success"><a class="nav-link active" href="{% url 'schema-create' %}">New
+        Schema</a></button>
+</div>
 <br/>
+
 <table class="table table-striped-columns">
     <thead>
     <tr>
@@ -17,16 +23,19 @@
 
     {% for schema in schemas %}
     <tr>
-        <th scope="row">{{ schema.id }}</th>
-        <td>{{ schema.title }}</td>
-        <td>{{ schema.updated_at }}</td>
+        <th scope="row">{{ schema.0 }}</th>
+        <td><a class="link-primary" href="{% url 'dataset-list' schema.1.id %}">{{ schema.1.title }}</a></td>
+        <td>{{ schema.1.updated_at }}</td>
         <td>
-            <button type="button" class="btn btn-link"><a href="#">Edit scheme</a></button>
-            <button type="button" class="btn btn-link"><a href="#">Delete</a></button>
+            <button type="button" class="btn btn-link"><a class="link-primary"
+                                                          href="{% url 'column-create' schema.1.id %}">Edit scheme</a>
+            </button>
+            <button type="button" class="btn btn-link"><a class="link-danger"
+                                                          href="{% url 'schema-delete' schema.1.id %}">Delete</a>
+            </button>
         </td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
-
 {% endblock %}
