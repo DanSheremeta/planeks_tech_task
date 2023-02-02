@@ -1,0 +1,46 @@
+{% extends 'dataset/base.html' %}
+
+{% block content %}
+
+<div class="grid gap-2">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h2 class="pb-2">New Schema</h2>
+        <div class="d-inline-flex p-0">
+            {{ schema_form.title }}
+        </div>
+        <div class="pt-2">
+            <button type="submit" value="Submit" class="btn btn-primary btn-sm">Submit</button>
+        </div>
+    </form>
+</div>
+
+
+<h2 class="d-flex justify-content-center pb-2">Schema columns</h2>
+
+<div class="grid gap-2">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="d-flex justify-content-between">
+            <div class="p-0 g-col-6">
+                <label for="Input" class="form-label">Name</label>
+                {{ column_form.name }}
+            </div>
+            <div class="p-0 g-col-6">
+                <label for="Select" class="form-label">Type</label>
+                {{ column_form.type }}
+            </div>
+            <div class="p-0 g-col-6">
+                <label for="Input1" class="form-label">Order</label>
+                {{ column_form.order }}
+            </div>
+            <button type="button" class="btn btn-link"><a class="link-danger" href="#">Delete</a></button>
+        </div>
+
+        <div class="pt-2 g-col-6">
+            <button type="submit" class="btn btn-primary btn-sm">Add column</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -4,9 +4,10 @@
 
 <div class="d-flex justify-content-between">
     <h2>Data shemas</h2>
-
+    {% if user.is_authenticated %}
     <button type="button" class="btn btn-success"><a class="nav-link active" href="{% url 'schema-create' %}">New
         Schema</a></button>
+    {% endif %}
 </div>
 <br/>
 
@@ -23,15 +24,15 @@
 
     {% for schema in schemas %}
     <tr>
-        <th scope="row">{{ schema.0 }}</th>
-        <td><a class="link-primary" href="{% url 'dataset-list' schema.1.id %}">{{ schema.1.title }}</a></td>
-        <td>{{ schema.1.updated_at }}</td>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td><a class="link-primary" href="{% url 'dataset-list' schema.id %}">{{ schema.title }}</a></td>
+        <td>{{ schema.updated_at }}</td>
         <td>
             <button type="button" class="btn btn-link"><a class="link-primary"
-                                                          href="{% url 'column-create' schema.1.id %}">Edit scheme</a>
+                                                          href="{% url 'schema-update' schema.id %}">Edit scheme</a>
             </button>
             <button type="button" class="btn btn-link"><a class="link-danger"
-                                                          href="{% url 'schema-delete' schema.1.id %}">Delete</a>
+                                                          href="{% url 'schema-delete' schema.id %}">Delete</a>
             </button>
         </td>
     </tr>
