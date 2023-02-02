@@ -1,0 +1,109 @@
+{% extends 'dataset/base.html' %}
+
+{% block content %}
+
+<div class="d-flex mb-2">
+    <h2 class="me-3">Sample schema</h2>
+    {% if columns %}
+    <button type="button" class="btn btn-link"><a class="link-primary"
+                                                  href="{% url 'schema-update' columns.1.schema.id %}">Edit scheme</a>
+    </button>
+    {% endif %}
+</div>
+
+<table class="table table-striped-columns">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Column name</th>
+        <th scope="col">Column type</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for column in columns %}
+    <tr>
+        <th scope="row">{{ column.order }}</th>
+        <td>{{ column.name }}</td>
+        <td>{{ column.type }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br>
+
+<div class="d-flex justify-content-between">
+    <h2>Data sets</h2>
+    <form id="dataset-form" action="" method="POST">
+        <div class="row">
+            {% csrf_token %}
+            <div class="d-flex justify-content-between">
+                <div class="form-group col-4">
+                    <div class="d-flex justify-content-between">
+                        <label for="Input" class="form-label">Rows:</label>
+                        <input id="Input" class="form-control" type="text">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm m-0 p-0">Generate data</button>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+
+<table class="table table-striped-columns">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Created</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for data in datasets %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ data.created_at }}</td>
+
+        {% if data.status == True %}
+        <td>
+            <span class="badge rounded-pill text-bg-success">Ready</span></td>
+        <td>
+            <button type="button" class="btn btn-link"><a class="link-primary" href="{% url 'csv-download' data.id %}">Download</a></button>
+        </td>
+        {% else %}
+        <td>
+            <span class="badge rounded-pill text-bg-secondary">Processing...</span></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    $('#dataset-form').submit(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "csv-generate" columns.1.schema.id %}',
+            data: {
+                rows: $('#Input').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    })
+</script>
+{% endblock javascript %}
+
+
