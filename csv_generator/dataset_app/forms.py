@@ -25,6 +25,11 @@ class ColumnForm(forms.ModelForm):
         }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'id': 'Input', 'type': 'text'}),
-            'type': forms.Select(attrs={'class': 'form-select', 'id': 'Select'}),
+            'type': forms.Select(attrs={'class': 'form-select', 'id': 'Select', 'style': 'style="width: 170px"'}),
             'order': forms.TextInput(attrs={'class': 'form-control', 'id': 'Input1', 'type': 'text'}),
         }
+
+
+class DataSetForm(forms.Form):
+    rows = forms.CharField(max_length=100,
+                           widget=forms.TextInput(attrs={'class': 'form-control form-control-sm', 'id': 'Input', 'type': 'text'}))
